@@ -1,18 +1,18 @@
 <template>
   <div>
-    <ChatForm />
+    <ChatPage/>
   </div>
 </template>
 
 <script>
-import ChatForm from './components/ChatForm.vue';
+import Registration from './components/Registration.vue';
 import ChatPage from './components/ChatPage.vue';
-//import axios from "axios";
-
+import Login from './components/Login.vue';
 
 export default {
     components: {
-    ChatForm,
+    Registration,
+    Login,
     ChatPage
   }
 };

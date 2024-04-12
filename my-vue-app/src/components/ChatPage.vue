@@ -1,52 +1,45 @@
 <template>
-    <div>
-      <!-- Верхняя часть страницы с заголовком -->
-      <h1>{{ chatName }}</h1>
-      
-      <!-- Диалоговое окно с сообщениями -->
-      <div class="chat-messages">
-        <div v-for="(message, index) in messages" :key="index" class="message">
-          <span>{{ message.sender }}:</span>
-          <span>{{ message.content }}</span>
-        </div>
-      </div>
-  
-      <!-- Инпут для ввода сообщения -->
-      <input v-model="newMessage" type="text" placeholder="Введите сообщение">
-  
-      <!-- Кнопка для отправки сообщения -->
-      <button @click="sendMessage">Отправить</button>
-  
-      <!-- Кнопка для приглашения друга -->
-      <button @click="inviteFriend">Пригласить друга</button>
+  <div class="chat-window">
+    <div class="chat-messages" ref="chatMessages">
+      <!-- Отображение сообщений -->
+      <div v-for="message in messages" :key="message.id" class="message">{{ message.text }}</div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        chatName: 'Название чата',
-        messages: [], // Здесь будут храниться сообщения чата
-        newMessage: '', // Содержимое нового сообщения
-      };
-    },
-    methods: {
-      sendMessage() {
-        // Логика отправки сообщения
-        // Здесь можно отправить newMessage на сервер
-        // и добавить его в список сообщений
-        this.messages.push({
-          sender: 'Вы', // Пока предположим, что вы отправляете сообщения
-          content: this.newMessage
-        });
-        // Очистка инпута после отправки сообщения
+    <div class="chat-input">
+
+      <input class="custom-input" type="text" v-model="newMessage" placeholder="Введите сообщение...">
+
+      <button class="custom-button" @click="sendMessage">Отправить</button>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import { connection } from '../signalR.js';
+export default {
+  data() {
+    return {
+      messages: [], 
+      newMessage: ''
+    };
+  },
+  methods: {
+    async sendMessage() {
+      try {
+        await connection.invoke('SendMessage', 'UserName', 'UserId', this.newMessage);
+        
+        this.messages.push({ id: this.messages.length + 1, text: this.newMessage });
+
         this.newMessage = '';
-      },
-      inviteFriend() {
-        // Логика приглашения друга
+        
+        this.scrollToBottom();
+      } catch (error) {
+        console.error('Ошибка отправки сообщения:', error);
       }
+    },
+    scrollToBottom() {
+      this.$refs.chatWindow.scrollTop = this.$refs.chatMessages.scrollHeight;
     }
-  };
-  </script>
-  
+  }
+};
+</script>

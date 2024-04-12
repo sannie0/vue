@@ -87,6 +87,8 @@ button:focus-visible {
   border: 1px solid #ccc;
   border-radius: 4px; 
   transition: border-color 0.7s ease;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
 
 .custom-input:focus {
@@ -98,6 +100,7 @@ button:focus-visible {
   outline: none;
   background-color: #975cf7;
   color: white;
+  margin-bottom: 10px;
 }
 
 .custom-button:hover {
@@ -110,4 +113,46 @@ button:focus-visible {
 }
 .message {
   margin-bottom: 10px;
+}
+
+.input-a{
+  color: #7d49d1; 
+}
+
+.chat-input{}
+
+.chat-window {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto; /* включение вертикальной прокрутки */
+}
+
+.message {
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+
+  background-color: transparent;
+}
+
+.input-field {
+  flex: 1;
+  margin-right: 10px;
+  border-radius: 20px;
+  height: 30px;
+  padding: 0 10px;
+}
+
+.send-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }

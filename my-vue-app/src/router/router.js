@@ -1,12 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ChatPage from './components/ChatPage.vue';
+import ChatForm from './components/ChatForm.vue';
 
 const routes = [
-    {
-      path: '/',
-      name: 'ChatPage',
-      component: ChatPage
-    },
+    { path: '/form', component: ChatForm},
+    { path: '/chat', component: ChatPage},
   ];
 
   const router = createRouter({
